@@ -65,7 +65,7 @@ $(document).ready(function () {
       colEl.css("background-color", backColor);
       colEl.appendTo(rowEl);
       controlEl = $("<button>");
-      controlEl.addClass("btn btn-primary");
+      controlEl.addClass("btn btn-primary btn-sm");
       controlEl.attr("id", "btn" + i);
       controlEl.text("Save");
       controlEl.appendTo(colEl);
