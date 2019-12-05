@@ -2,22 +2,15 @@ var schedule = ["", "", "", "", "", "", "", ""];
 
 $(document).ready(function () {
   function loadSchedule() {
-    for (var i = 0; i < localStorage.length; i++) {
-      var key = localStorage.key(i);
-      console.log(key);
-      if (key !== null) {
-        if (key === "localSchedule") {
-          var value = localStorage.getItem(key);
-          console.log('Key: ' + key + ', Value: ' + value);
-          var localSchedule = JSON.parse(value);
-          if (localSchedule !== null) {
-            for (var j = 0; j < schedule.length; j++) {
-              if (localSchedule[j] !== null) {
-                console.log(localSchedule[j]);
-                schedule[j] = localSchedule[j];
-              }
-            }
 
+    var value = localStorage.getItem("localSchedule");
+    if (value !== null) {
+      var localSchedule = JSON.parse(value);
+      if (localSchedule !== null) {
+        for (var j = 0; j < schedule.length; j++) {
+          if (localSchedule[j] !== null) {
+            console.log(localSchedule[j]);
+            schedule[j] = localSchedule[j];
           }
         }
 
@@ -78,20 +71,20 @@ $(document).ready(function () {
     updateTimeText();
   }
 
-  setInterval(updateTimeTextByInterval, 1000);
+  setInterval(updateTimeTextByInterval, 60000);
 
   function saveNotes() {
-    var saveRequired =false;
+    var saveRequired = false;
     for (var i = 0; i < schedule.length; i++) {
       var txtAreaEl = $("#txt" + i);
       var txt = txtAreaEl.val()
       if (schedule[i] !== txt) {
         schedule[i] = txt;
-        saveRequired =true;
+        saveRequired = true;
       }
     }
-    if (saveRequired){
-      localStorage.setItem("localSchedule",schedule);
+    if (saveRequired) {
+      localStorage.setItem("localSchedule", JSON.stringify(schedule));
     }
   }
 
@@ -100,8 +93,7 @@ $(document).ready(function () {
     txtID = txtID.replace("btn", "txt");
     var txtAreaEl = $("#" + txtID);
     saveNotes();
-    // alert(txtAreaEl.val());
-
+    
   });
 
 
