@@ -28,6 +28,8 @@ $(document).ready(function () {
     var rowEl;
     var colEl;
     var controlEl;
+    var txt;
+    var backColor;
     for (var i = 0; i < 9; i++) {
       rowEl = $("<div>");
       rowEl.addClass("row");
@@ -35,12 +37,22 @@ $(document).ready(function () {
       //time col
       colEl = $("<div>");
       colEl.addClass("col-md-1");
-      colEl.text((9 + i) + ":00");
+      txt=(9 + i);
+      if (txt<parseInt(moment().format("hh")) ){
+        backColor="rgb(127, 153, 179)";
+      }
+      else
+      {
+        backColor="lightgreen";
+      }
+      colEl.css("background-color", backColor);
+      colEl.text(txt + ":00");
       colEl.appendTo(rowEl);
       rowEl.appendTo($(".schedule"));
       //text col
       colEl = $("<div>");
       colEl.addClass("col-md-10");
+      colEl.css("background-color", backColor);
       colEl.appendTo(rowEl);
       controlEl = $("<textarea>");
       controlEl.addClass("form-control");
@@ -50,6 +62,7 @@ $(document).ready(function () {
       //button col
       colEl = $("<div>");
       colEl.addClass("col-md-1");
+      colEl.css("background-color", backColor);
       colEl.appendTo(rowEl);
       controlEl = $("<button>");
       controlEl.addClass("btn btn-primary");
