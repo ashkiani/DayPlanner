@@ -37,7 +37,7 @@ $(document).ready(function () {
       colEl.addClass("col-md-1");
       colEl.text((9 + i) + ":00");
       colEl.appendTo(rowEl);
-      rowEl.appendTo($(".container"));
+      rowEl.appendTo($(".schedule"));
       //text col
       colEl = $("<div>");
       colEl.addClass("col-md-10");
@@ -73,6 +73,7 @@ $(document).ready(function () {
 
   setInterval(updateTimeTextByInterval, 60000);
 
+  //this function will save all of the notes that are changed
   function saveNotes() {
     var saveRequired = false;
     for (var i = 0; i < schedule.length; i++) {
@@ -89,13 +90,23 @@ $(document).ready(function () {
   }
 
   $(".btn").click(function () {
-    var txtID = $(this).attr('id');
-    txtID = txtID.replace("btn", "txt");
+    var btnID = $(this).attr('id');
+    var index = parseInt(btnID.replace("btn", ""));
+    txtID = "txt" + index;
     var txtAreaEl = $("#" + txtID);
-    saveNotes();
-    
-  });
 
+    var txt = txtAreaEl.val()
+    if (schedule[index] !== txt) {
+      schedule[index] = txt;
+      localStorage.setItem("localSchedule", JSON.stringify(schedule));
+    }
+    txtAreaEl.css("background-color", "white");
+    //    saveNotes();
+
+  });
+  $(".form-control").on('change', function () {
+    $(this).css("background-color", "red");
+  });
 
 
 });
