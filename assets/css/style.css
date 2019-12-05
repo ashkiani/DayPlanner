@@ -5,3 +5,9 @@
 .row{
   border: 1px solid black;
 }
+
+ul { list-style: none; }
+span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
+.pending { background-color: rgb(221, 112, 112); }
+.past { background-color: rgb(127, 153, 179); }
+.future { background-color: lightgreen; }
