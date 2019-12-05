@@ -37,13 +37,12 @@ $(document).ready(function () {
       //time col
       colEl = $("<div>");
       colEl.addClass("col-md-1");
-      txt=(9 + i);
-      if (txt<parseInt(moment().format("hh")) ){
-        backColor="rgb(127, 153, 179)";
+      txt = (9 + i);
+      if (txt < parseInt(moment().format("hh"))) {
+        backColor = "rgb(127, 153, 179)";
       }
-      else
-      {
-        backColor="lightgreen";
+      else {
+        backColor = "lightgreen";
       }
       colEl.css("background-color", backColor);
       colEl.text(txt + ":00");
@@ -95,6 +94,7 @@ $(document).ready(function () {
       if (schedule[i] !== txt) {
         schedule[i] = txt;
         saveRequired = true;
+        txtAreaEl.css("background-color", "white");
       }
     }
     if (saveRequired) {
@@ -103,20 +103,28 @@ $(document).ready(function () {
   }
 
   $(".btn").click(function () {
-    var btnID = $(this).attr('id');
-    var index = parseInt(btnID.replace("btn", ""));
-    txtID = "txt" + index;
-    var txtAreaEl = $("#" + txtID);
-
-    var txt = txtAreaEl.val()
-    if (schedule[index] !== txt) {
-      schedule[index] = txt;
-      localStorage.setItem("localSchedule", JSON.stringify(schedule));
+    var radioValue = $("input[name='optradio']:checked").val();
+    if (radioValue == "saveAllRows") {
+      console.log("Saving All Rows");
+      saveNotes();
     }
-    txtAreaEl.css("background-color", "white");
-    //    saveNotes();
+    else {
+      console.log("Saving One Row");
+      var btnID = $(this).attr('id');
+      var index = parseInt(btnID.replace("btn", ""));
+      txtID = "txt" + index;
+      var txtAreaEl = $("#" + txtID);
+
+      var txt = txtAreaEl.val()
+      if (schedule[index] !== txt) {
+        schedule[index] = txt;
+        localStorage.setItem("localSchedule", JSON.stringify(schedule));
+      }
+      txtAreaEl.css("background-color", "white");
+    }
 
   });
+
   $(".form-control").on('change', function () {
     $(this).css("background-color", "red");
   });
