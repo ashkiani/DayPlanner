@@ -88,7 +88,7 @@ $(document).ready(function () {
     updateTimeText();
   }
 
-  setInterval(updateTimeTextByInterval, 60000);
+  setInterval(updateTimeTextByInterval, 1000);
 
   //this function will save all of the notes that are changed
   function saveNotes() {
