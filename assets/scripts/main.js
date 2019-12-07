@@ -25,6 +25,21 @@ $(document).ready(function () {
   }
   updateTimeText();
 
+  function AddElement(elementTag, elementClass, elementID, elementText, parentElement) {
+    element = $("<" + elementTag + ">");
+    if (elementClass !== null && elementClass !== "") {
+      element.addClass(elementClass);
+    }
+    if (elementID !== null && elementID !== "") {
+      element.attr("id", elementID);
+    }
+    if (elementText !== null && elementText !== "") {
+      element.text(elementText);
+    }
+    element.appendTo(parentElement);
+    return element;
+  }
+
   function AddControls() {
     var rowEl;
     var colEl;
@@ -32,47 +47,28 @@ $(document).ready(function () {
     var txt;
     var backColor;
     for (var i = 0; i < 9; i++) {
-      rowEl = $("<div>");
-      rowEl.addClass("row");
-      rowEl.attr("id", "row" + i);
+      rowEl = AddElement("div", "row", "row" + i, null, $(".schedule"));
       //time col
-      colEl = $("<div>");
-      colEl.addClass("col-md-1");
       txt = (9 + i);
-      var currentHr =parseInt(moment().format("hh"));
+      var currentHr = parseInt(moment().format("hh"));
       if (txt < currentHr) {
         backColor = "lightgray";
       }
-      else if (txt==currentHr){
+      else if (txt == currentHr) {
         backColor = "lightgreen";
       }
       else {
         backColor = "lightblue";
       }
+      colEl = AddElement("div", "col-md-1", null, txt + ":00", rowEl);
       colEl.css("background-color", backColor);
-      colEl.text(txt + ":00");
-      colEl.appendTo(rowEl);
-      rowEl.appendTo($(".schedule"));
-      //text col
-      colEl = $("<div>");
-      colEl.addClass("col-md-10");
+      colEl = AddElement("div", "col-md-10", null, null, rowEl);
       colEl.css("background-color", backColor);
-      colEl.appendTo(rowEl);
-      controlEl = $("<textarea>");
-      controlEl.addClass("form-control");
-      controlEl.attr("id", "txt" + i);
-      //controlEl.text("text");
-      controlEl.appendTo(colEl);
+      controlEl = AddElement("textarea", "form-control", "txt" + i, null, colEl);
       //button col
-      colEl = $("<div>");
-      colEl.addClass("col-md-1");
+      colEl = AddElement("div", "col-md-1", null, null, rowEl);
       colEl.css("background-color", backColor);
-      colEl.appendTo(rowEl);
-      controlEl = $("<button>");
-      controlEl.addClass("btn btn-primary p-1");
-      controlEl.attr("id", "btn" + i);
-      controlEl.text("Save");
-      controlEl.appendTo(colEl);
+      controlEl = AddElement("button", "btn btn-primary p-1", "btn" + i, "Save", colEl);
     }
   }
   AddControls();
