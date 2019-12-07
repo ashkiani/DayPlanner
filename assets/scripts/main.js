@@ -5,6 +5,7 @@ $(document).ready(function () {
 
     var value = localStorage.getItem("localSchedule");
     if (value !== null) {
+      console.log(value);
       var localSchedule = JSON.parse(value);
       if (localSchedule !== null) {
         for (var j = 0; j < schedule.length; j++) {
@@ -38,11 +39,15 @@ $(document).ready(function () {
       colEl = $("<div>");
       colEl.addClass("col-md-1");
       txt = (9 + i);
-      if (txt < parseInt(moment().format("hh"))) {
-        backColor = "rgb(127, 153, 179)";
+      var currentHr =parseInt(moment().format("hh"));
+      if (txt < currentHr) {
+        backColor = "lightgray";
+      }
+      else if (txt==currentHr){
+        backColor = "lightgreen";
       }
       else {
-        backColor = "lightgreen";
+        backColor = "lightblue";
       }
       colEl.css("background-color", backColor);
       colEl.text(txt + ":00");
