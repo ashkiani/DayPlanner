@@ -12,3 +12,9 @@ span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2
 .past { background-color: lightgray; }
 .present { background-color: lightgreen; }
 .future { background-color: lightblue; }
+
+footer{
+  text-align: center;
+  background-color: teal;
+  color:white;
+}
